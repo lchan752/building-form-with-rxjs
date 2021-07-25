@@ -6,6 +6,7 @@ import {
   Switch 
 } from 'react-router-dom'
 import CreateForm from './pages/CreateForm'
+import EditForm from 'pages/EditForm'
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
         <Switch>
           <Route path='/' exact component={CreateForm}></Route>
           <Route path='/create' component={CreateForm}></Route>
+          <Route path='/edit/:post_id' component={EditForm}></Route>
         </Switch>
       </main>
     </Router>

@@ -2,6 +2,7 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { Subscription } from 'rxjs'
 import CreateFormBloc from './CreateFormBloc'
+import PostForm from 'components/PostForm'
 
 export default function CreateForm() {
   const form = useForm()
@@ -23,22 +24,12 @@ export default function CreateForm() {
   return (
     <React.Fragment>
       <h4>Create Post</h4>
-      <form onSubmit={form.handleSubmit(onCreate)}>
-        <div>
-          <label>Title</label>
-          <input type='text' {...form.register("title")}></input>
-        </div>
-        <div>
-          <label>Body</label>
-          <textarea {...form.register("body")}></textarea>
-        </div>
-        {error ? <p>{error}</p> : null}
-        <input
-          type='submit'
-          disabled={loading}
-          value={loading ? 'Please Wait ...' : 'Submit'}>
-        </input>
-      </form>
+      <PostForm
+        form={form}
+        error={error}
+        loading={loading}
+        onSubmit={onCreate}>
+      </PostForm>
     </React.Fragment>
   )
 }

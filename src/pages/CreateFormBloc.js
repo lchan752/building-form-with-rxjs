@@ -8,7 +8,11 @@ export default class CreateFormBloc {
     this.formData = new Subject();
 
     this.createPost = this.formData.pipe(
-      switchMap(data => fromFetch(`${BASE_URL}/posts`, { method: 'POST', body: JSON.stringify(data) })),
+      switchMap(data => {
+        const url = `${BASE_URL}/posts`
+        const payload = { method: 'POST', body: JSON.stringify(data) }
+        return fromFetch(url, payload)
+      }),
       switchMap(resp => {
         if (resp.ok) {
           return resp.json()
