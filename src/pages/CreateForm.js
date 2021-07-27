@@ -4,16 +4,18 @@ import { Subscription } from 'rxjs'
 import CreateFormBloc from './CreateFormBloc'
 
 export default function CreateForm() {
+  const [bloc] = React.useState(new CreateFormBloc())
   const form = useForm()
   const [error, setError] = React.useState('')
   const [loading, setLoading] = React.useState(false)
-  const [bloc] = React.useState(new CreateFormBloc())
+  
 
   React.useEffect(() => {
     const sub = new Subscription()
     sub.add(bloc.createPostSuccess.subscribe(_ => alert('Post Created Successfully!')))
     sub.add(bloc.createPostFailed.subscribe(err => setError(err.message)))
     sub.add(bloc.createPostInProgress.subscribe(setLoading))
+    return () => sub.unsubscribe()
   }, [])
 
   function onCreate(data) {
