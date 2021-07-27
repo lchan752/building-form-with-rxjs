@@ -18,7 +18,6 @@ export default class EditFormBloc {
           return of(new Error('Error fetching Post'))
         }
       }),
-      share(),
     )
 
     this.updatePost = this.formData.pipe(
@@ -34,7 +33,8 @@ export default class EditFormBloc {
         } else {
           return of(new Error('Error updating Post'))
         }
-      })
+      }),
+      share(),
     )
 
     this.updatePostSuccess = this.updatePost.pipe(

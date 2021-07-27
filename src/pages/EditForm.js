@@ -21,6 +21,7 @@ export default function EditForm() {
       form.setValue('title', data.title, { shouldValidate: true, shouldDirty: false })
       form.setValue('body', data.body, { shouldValidate: true, shouldDirty: false })
     }))
+    return () => sub.unsubscribe()
   }, [])
 
   React.useEffect(() => {
