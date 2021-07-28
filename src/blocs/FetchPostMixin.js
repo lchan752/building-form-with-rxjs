@@ -1,10 +1,11 @@
+import { Mixin } from 'mixwith'
 import { has } from "lodash";
 import { of, Subject, switchMap } from "rxjs";
 import { fromFetch } from 'rxjs/fetch';
 
 const BASE_URL = 'https://jsonplaceholder.typicode.com'
 
-export default class ViewPostBloc {
+let FetchPostMixin = Mixin((superclass) => class extends superclass {
   get postID() {
     if (!has(this, '_postID')) {
       this._postID = new Subject()
@@ -26,4 +27,6 @@ export default class ViewPostBloc {
     }
     return this._post
   }
-}
+});
+
+export default FetchPostMixin

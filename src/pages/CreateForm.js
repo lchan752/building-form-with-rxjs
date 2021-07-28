@@ -1,7 +1,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { Subscription } from 'rxjs'
-import CreateFormBloc from './CreateFormBloc'
+import CreateFormBloc from 'blocs/CreateFormBloc'
 import PostForm from 'components/PostForm'
 
 export default function CreateForm() {

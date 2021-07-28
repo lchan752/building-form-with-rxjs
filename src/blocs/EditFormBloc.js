@@ -1,38 +1,17 @@
 import { has } from "lodash";
+import { mix } from "mixwith";
 import { of, Subject, switchMap, withLatestFrom, share, filter, merge, mapTo, startWith } from "rxjs";
 import { fromFetch } from 'rxjs/fetch';
+import FetchPostMixin from "blocs/FetchPostMixin";
 
 const BASE_URL = 'https://jsonplaceholder.typicode.com'
 
-export default class EditFormBloc {
+export default class EditFormBloc extends mix(Object).with(FetchPostMixin) {
   get formData() {
     if (!has(this, '_formData')) {
       this._formData = new Subject()
     }
     return this._formData
-  }
-
-  get postID() {
-    if (!has(this, '_postID')) {
-      this._postID = new Subject()
-    }
-    return this._postID
-  }
-
-  get initialFormData() {
-    if (!has(this, '_initialFormData')) {
-      this._initialFormData = this.postID.pipe(
-        switchMap(postID => fromFetch(`${BASE_URL}/posts/${postID}`)),
-        switchMap(resp => {
-          if (resp.ok) {
-            return resp.json()
-          } else {
-            return of(new Error('Error fetching Post'))
-          }
-        }),
-      )
-    }
-    return this._initialFormData
   }
 
   get updatePost() {

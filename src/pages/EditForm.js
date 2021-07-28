@@ -2,7 +2,7 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { Subscription } from 'rxjs'
 import PostForm from 'components/PostForm'
-import EditFormBloc from './EditFormBloc'
+import EditFormBloc from 'blocs/EditFormBloc'
 import { useRouteMatch } from 'react-router-dom'
 
 export default function EditForm() {
@@ -17,9 +17,9 @@ export default function EditForm() {
     sub.add(bloc.updatePostSuccess.subscribe(_ => alert('Post Updated Successfully!')))
     sub.add(bloc.updatePostFailed.subscribe(err => setError(err.message)))
     sub.add(bloc.updatePostInProgress.subscribe(setLoading))
-    sub.add(bloc.initialFormData.subscribe(data => {
-      form.setValue('title', data.title, { shouldValidate: true, shouldDirty: false })
-      form.setValue('body', data.body, { shouldValidate: true, shouldDirty: false })
+    sub.add(bloc.post.subscribe(post => {
+      form.setValue('title', post.title, { shouldValidate: true, shouldDirty: false })
+      form.setValue('body', post.body, { shouldValidate: true, shouldDirty: false })
     }))
     return () => sub.unsubscribe()
   }, [])

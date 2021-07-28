@@ -1,7 +1,7 @@
 import React from 'react'
 import { useRouteMatch } from 'react-router-dom'
 import { Subscription } from 'rxjs'
-import ViewPostBloc from './ViewPostBloc'
+import ViewPostBloc from 'blocs/ViewPostBloc'
 
 export default function ViewPost() {
   const match = useRouteMatch()
